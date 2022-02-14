@@ -1,3 +1,18 @@
+/*
+Name: Hung-Yi Lu
+BlazerId: lu0106
+Project #:Homework 2
+To compile: use command "gcc hw2.c"
+To run: use command: 
+./a.out -S
+./a.out -S -s[size]
+./a.out -f[]
+./a.out -S -f[]
+./a.out -s[size] -f[]
+./a.out -t d(directory)
+./a.out -t f(file)
+./a.out -S -s[size] -t f(file)
+*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <dirent.h>
@@ -17,17 +32,16 @@ int main(int argc, char *argv[]){
     char str[999];
     memset(str, 0, sizeof(str));
 
-    int S = 0;
-    int t = 0; 
-    int d = 0;
+    int S=0, t=0, d = 0;
     int size = 0;
-    int count = 1;
-    int c = 0;
 
     char addr[999];
     memset(addr, 0, sizeof(addr));
     getcwd(addr, sizeof(addr));
     strcat(addr, "/");
+
+    int count = 1;
+    int c = 0;
 
     int result;
     while((result = getopt(argc, argv, "Ss:f:t:")) != -1){
@@ -128,9 +142,12 @@ int test(char *path, int size, char *str, int S, int d, int t, int count, int c)
         }
 
         //null 0 0
-        if((str == NULL) && (t == 0) && (d == 0)){
-            if(file_size >= size){
-                for (i = 0; i < c; ++i){
+        if( (str == NULL) && (t == 0) && (d == 0) )
+        {
+            if(file_size >= size)
+            {
+                for (i = 0; i < c; ++i)
+                {
                     printf("     ");
                 }
                 printf("%s (File Type: %s)", (*ptr).d_name, type_of_file((*ptr).d_type));
@@ -145,7 +162,8 @@ int test(char *path, int size, char *str, int S, int d, int t, int count, int c)
                 {
                     continue; // run next loop
                 }
-                else if (!(strcmp((*ptr).d_name, ".") == 0 || strcmp((*ptr).d_name, "..") == 0)){
+                else if (!(strcmp((*ptr).d_name, ".") == 0 || strcmp((*ptr).d_name, "..") == 0))
+                {
                     sprintf(directory_name, "%s/%s", path, (*ptr).d_name); // directory_name = path, ptr.d_name
                     test(directory_name, size, str, S, d, t, count, c + 1); //c+1
                 }
@@ -155,10 +173,14 @@ int test(char *path, int size, char *str, int S, int d, int t, int count, int c)
         }
 
         //null 0 1
-        if((str == NULL) && (t == 0) && (d == 1)){
-            if(strcmp( type_of_file((*ptr).d_type), "directory") == 0){
-                if(file_size >= size){
-                    for (i = 0; i < c; ++i){
+        if( (str == NULL) && (t == 0) && (d == 1) )
+        {
+            if( strcmp( type_of_file((*ptr).d_type), "directory") == 0)
+            {
+                if( file_size >= size)
+                {
+                    for (i = 0; i < c; ++i)
+                    {
                         printf("     ");
                     }
                     printf("%s (File Type: %s)", (*ptr).d_name, type_of_file((*ptr).d_type));
@@ -173,7 +195,8 @@ int test(char *path, int size, char *str, int S, int d, int t, int count, int c)
                     {
                         continue; // run next loop
                     }
-                    else if (!(strcmp((*ptr).d_name, ".") == 0 || strcmp((*ptr).d_name, "..") == 0)){
+                    else if (!(strcmp((*ptr).d_name, ".") == 0 || strcmp((*ptr).d_name, "..") == 0))
+                    {
                         sprintf(directory_name, "%s/%s", path, (*ptr).d_name); // directory_name = path, ptr.d_name
                         test(directory_name, size, str, S, d, t, count, c+1); //c+1
                     }
@@ -184,10 +207,14 @@ int test(char *path, int size, char *str, int S, int d, int t, int count, int c)
 
 
         //null 1 0
-        if((str == NULL) && (t == 1) && (d == 0) ){
-            if(strcmp( type_of_file((*ptr).d_type), "regular file") == 0){
-                if(file_size >= size){
-                    for (i = 0; i < c; ++i){
+        if( (str == NULL) && (t == 1) && (d == 0) )
+        {
+            if( strcmp( type_of_file((*ptr).d_type), "regular file") == 0)
+            {
+                if( file_size >= size)
+                {
+                    for (i = 0; i < c; ++i)
+                    {
                         printf("     ");
                     }
                     printf("%s (File Type: %s)", (*ptr).d_name, type_of_file((*ptr).d_type));
@@ -202,7 +229,8 @@ int test(char *path, int size, char *str, int S, int d, int t, int count, int c)
                     {
                         continue; // run next loop
                     }
-                    else if (!(strcmp((*ptr).d_name, ".") == 0 || strcmp((*ptr).d_name, "..") == 0)){
+                    else if (!(strcmp((*ptr).d_name, ".") == 0 || strcmp((*ptr).d_name, "..") == 0))
+                    {
                         sprintf(directory_name, "%s/%s", path, (*ptr).d_name); // directory_name = path, ptr.d_name
                         test(directory_name, size, str, S, d, t, count, c+1); //c+1
                     }
@@ -211,11 +239,15 @@ int test(char *path, int size, char *str, int S, int d, int t, int count, int c)
             }
         }
 
-        // V 0 0
-        if((str != NULL) && (t == 0) && (d == 0)){
-            if(strstr((*ptr).d_name, str) != NULL){
-                if(file_size >= size){
-                    for (i = 0; i < c; ++i){
+        // 0 0
+        if( (str != NULL) && (t == 0) && (d == 0) )
+        {
+            if( strstr( (*ptr).d_name, str) != NULL)
+            {
+                if( file_size >= size)
+                {
+                    for (i = 0; i < c; ++i)
+                    {
                         printf("     ");
                     }
                     printf("%s (File Type: %s)", (*ptr).d_name, type_of_file((*ptr).d_type));
@@ -230,7 +262,8 @@ int test(char *path, int size, char *str, int S, int d, int t, int count, int c)
                     {
                         continue; // run next loop
                     }
-                    else if (!(strcmp((*ptr).d_name, ".") == 0 || strcmp((*ptr).d_name, "..") == 0)){
+                    else if (!(strcmp((*ptr).d_name, ".") == 0 || strcmp((*ptr).d_name, "..") == 0))
+                    {
                         sprintf(directory_name, "%s/%s", path, (*ptr).d_name); // directory_name = path, ptr.d_name
                         test(directory_name, size, str, S, d, t, count, c+1); //c+1
                     }
@@ -239,11 +272,15 @@ int test(char *path, int size, char *str, int S, int d, int t, int count, int c)
             }
         }
 
-        // V 0 1
-        if((str != NULL) && (t == 0) && (d == 1)){
-            if((strstr((*ptr).d_name, str) != NULL) && (strcmp( type_of_file((*ptr).d_type), "directory") == 0)){
-                if(file_size >= size){
-                    for (i = 0; i < c; ++i){
+        // 0 1
+        if( (str != NULL) && (t == 0) && (d == 1) )
+        {
+            if( (strstr( (*ptr).d_name, str) != NULL) && (strcmp( type_of_file((*ptr).d_type), "directory") == 0) )
+            {
+                if( file_size >= size)
+                {
+                    for (i = 0; i < c; ++i)
+                    {
                         printf("     ");
                     }
                     printf("%s (File Type: %s)", (*ptr).d_name, type_of_file((*ptr).d_type));
@@ -258,7 +295,8 @@ int test(char *path, int size, char *str, int S, int d, int t, int count, int c)
                     {
                         continue; // run next loop
                     }
-                    else if (!(strcmp((*ptr).d_name, ".") == 0 || strcmp((*ptr).d_name, "..") == 0)){
+                    else if (!(strcmp((*ptr).d_name, ".") == 0 || strcmp((*ptr).d_name, "..") == 0))
+                    {
                         sprintf(directory_name, "%s/%s", path, (*ptr).d_name); // directory_name = path, ptr.d_name
                         test(directory_name, size, str, S, d, t, count, c+1); //c+1
                     }
@@ -267,11 +305,15 @@ int test(char *path, int size, char *str, int S, int d, int t, int count, int c)
             }
         }
 
-        // V 1 0
-        if((str != NULL) && (t == 1) && (d == 0) ){
-            if((strstr((*ptr).d_name, str) != NULL) && (strcmp(type_of_file((*ptr).d_type), "regular file") == 0)){
-                if( file_size >= size){
-                    for (i = 0; i < c; ++i){
+        // 1 0
+        if( (str != NULL) && (t == 1) && (d == 0) )
+        {
+            if( (strstr( (*ptr).d_name, str) != NULL) && (strcmp( type_of_file((*ptr).d_type), "regular file") == 0) )
+            {
+                if( file_size >= size)
+                {
+                    for (i = 0; i < c; ++i)
+                    {
                         printf("     ");
                     }
                     printf("%s (File Type: %s)", (*ptr).d_name, type_of_file((*ptr).d_type));
@@ -286,7 +328,8 @@ int test(char *path, int size, char *str, int S, int d, int t, int count, int c)
                     {
                         continue; // run next loop
                     }
-                    else if (!(strcmp((*ptr).d_name, ".") == 0 || strcmp((*ptr).d_name, "..") == 0)){
+                    else if (!(strcmp((*ptr).d_name, ".") == 0 || strcmp((*ptr).d_name, "..") == 0))
+                    {
                         sprintf(directory_name, "%s/%s", path, (*ptr).d_name); // directory_name = path, ptr.d_name
                         test(directory_name, size, str, S, d, t, count, c+1); //c+1
                     }
@@ -296,7 +339,7 @@ int test(char *path, int size, char *str, int S, int d, int t, int count, int c)
         }
 
         //Error
-        if((t == 1) && (d == 1)){
+        if( (t == 1) && (d == 1)){
             printf("Error\n");
             exit(EXIT_FAILURE);
         }
