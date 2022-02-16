@@ -2,16 +2,16 @@
 Name: Hung-Yi Lu
 BlazerId: lu0106
 Project #:Homework 2
-To compile: use command "gcc hw2.c"
+To compile: use command "make"
 To run: use command: 
-./a.out -S
-./a.out -S -s[size]
-./a.out -f[]
-./a.out -S -f[]
-./a.out -s[size] -f[]
-./a.out -t d(directory)
-./a.out -t f(file)
-./a.out -S -s[size] -t f(file)
+./hw2 -S
+./hw2 -S -s[size]
+./hw2 -f[]
+./hw2 -S -f[]
+./hw2 -s[size] -f[]
+./hw2 -t d(directory)
+./hw2 -t f(file)
+./hw2 -S -s[size] -t f(file)
 */
 #include <stdio.h>
 #include <stdlib.h>
